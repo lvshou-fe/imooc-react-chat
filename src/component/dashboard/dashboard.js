@@ -16,6 +16,7 @@ import Msg from '../msg/msg'
 )
 class Dashboard extends React.Component {
     componentDidMount() {
+        //没有数据才去获取数据
         if(!this.props.chat.chatmsg.length){
             this.props.getMsgList()
             this.props.recvMsg()

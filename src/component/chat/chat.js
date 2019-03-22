@@ -15,7 +15,7 @@ class Chat extends React.Component{
         this.state = {text: '',msg: []}
     }
     componentDidMount() {
-	//在redux里面    
+	//在redux里面 当前页面刷新，让他可以获取用户   
         if(!this.props.chat.chatmsg.length){
             this.props.getMsgList()
             this.props.recvMsg()

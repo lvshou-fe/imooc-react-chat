@@ -12,6 +12,7 @@ const MSG_READ = 'MSG_READ'
 const initState  = {
     chatmsg: [],
     users:{},
+    //未读信息数量
     unread: 0
 }
 
@@ -19,13 +20,18 @@ const initState  = {
 export function chat(state=initState, action) {
     switch(action.type){
         case MSG_LIST:
-            return {...state,users:action.payload.users, chatmsg:action.payload.msgs, unread:action.payload.msgs.filter(v=>!v.read&&v.to===action.payload.userid).length}
+            return {
+                ...state,
+                users:action.payload.users, 
+                chatmsg:action.payload.msgs, 
+                unread:action.payload.msgs.filter(v=>!v.read&&v.to===action.payload.userid).length
+            }
         case MSG_RECV:
             const n = action.payload.to ===action.userid?1:0
             return {...state, chatmsg:[...state.chatmsg, action.payload],unread:state.unread + n}
         case MSG_READ:
-        const {from, num} = action.payload
-        return {...state, chatmsg:state.chatmsg.map(v=>({...v,read:from===v.from?true:v.read})), unread:state.unread-num}
+            const {from, num} = action.payload
+            return {...state, chatmsg:state.chatmsg.map(v=>({...v,read:from===v.from?true:v.read})), unread:state.unread-num}
         default:
             return state
     }
@@ -73,6 +79,7 @@ export function sendMsg({from, to, msg}) {
     
 }
 
+//首次进来获取列表
 export function getMsgList() {
     return (dispatch, getState)=> {
         axios.get('/user/getmsglist')

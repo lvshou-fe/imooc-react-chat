@@ -18,11 +18,17 @@ const models = {
         'money': {type: String}
     },
     chat: {
+        //2个的聊天id 唯一标示
         'chatid': {type: String, require: true},
+        //来源
         'from': {type: String, require: true},
+        //去哪里
         'to': {type: String, require: true},
+        //读的状态  只有to 有read的状态
         'read': {type: Boolean, default: false},
+        //内容
         'content': {type: String, require: true, default: ''},
+        //创建时间
         'create_time': {type: Number, default: new Date().getTime()}
     }
 }

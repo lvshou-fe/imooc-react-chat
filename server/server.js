@@ -15,7 +15,9 @@ io.on('connection', function (socket) {
     socket.on('sendmsg', function (data) {
         const {from, to, msg} = data
         const chatid = [from, to].sort().join('_')
+        //新建数据
         Chat.create({chatid, from, to, content: msg}, function (err, doc) {
+            //全局发送消息
             io.emit('recvmsg', Object.assign({},doc._doc))
         })
     })

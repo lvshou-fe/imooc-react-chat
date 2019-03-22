@@ -5,6 +5,7 @@ import {getMsgList, sendMsg, recvMsg, readMsg} from '../../redux/chat.redux'
 import {getChatId} from '../../util'
 import QueueAnim from 'rc-queue-anim'
 @connect(
+    //获取所有信息	 		
     state=>state,
     {getMsgList, sendMsg, recvMsg, readMsg}
 )
@@ -14,6 +15,7 @@ class Chat extends React.Component{
         this.state = {text: '',msg: []}
     }
     componentDidMount() {
+	//在redux里面    
         if(!this.props.chat.chatmsg.length){
             this.props.getMsgList()
             this.props.recvMsg()
